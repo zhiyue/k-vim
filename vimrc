@@ -1,11 +1,11 @@
 "==========================================
 " Author:  wklken
-" Version: 8.0
+" Version: 8.1
 " Email: wklken@yeah.net
-" BlogPost: http://wklken.me
+" BlogPost: http://www.wklken.me
 " ReadMe: README.md
 " Donation: http://www.wklken.me/pages/donation.html
-" Last_modify: 2014-10-02
+" Last_modify: 2015-05-02
 " Sections:
 "       -> Initial Plugin 加载插件
 "       -> General Settings 基础设置
@@ -18,7 +18,7 @@
 "
 "       -> 插件配置和具体设置在vimrc.bundles中
 "==========================================
- 
+
 "==========================================
 " Initial Plugin 加载插件
 "==========================================
@@ -173,6 +173,18 @@ set foldenable
 " marker    使用标记进行折叠, 默认标记是 {{{ 和 }}}
 set foldmethod=indent
 set foldlevel=99
+" 代码折叠自定义快捷键
+let g:FoldMethod = 0
+map <leader>zz :call ToggleFold()<cr>
+fun! ToggleFold()
+    if g:FoldMethod == 0
+        exe "normal! zM"
+        let g:FoldMethod = 1
+    else
+        exe "normal! zR"
+        let g:FoldMethod = 0
+    endif
+endfun
 
 " 缩进配置
 
@@ -363,6 +375,10 @@ nnoremap <silent> g* g*zz
 nnoremap # *
 nnoremap * #
 
+" for # indent, python文件中输入新行时#号注释不切回行首
+autocmd BufNewFile,BufRead *.py inoremap # X<c-h>#
+
+
 " 去掉搜索高亮
 noremap <silent><leader>/ :nohls<CR>
 
@@ -513,8 +529,15 @@ function! AutoSetFileHead()
     normal o
 endfunc
 
-" F10 to run python script
-nnoremap <buffer> <F10> :exec '!python' shellescape(@%, 1)<cr>
+
+" set some keyword to highlight
+if has("autocmd")
+  " Highlight TODO, FIXME, NOTE, etc.
+  if v:version > 701
+    autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)')
+    autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
+  endif
+endif
 
 "==========================================
 " Theme Settings  主题设置
@@ -524,7 +547,7 @@ nnoremap <buffer> <F10> :exec '!python' shellescape(@%, 1)<cr>
 if has("gui_running")
     set guifont=Monaco:h14
     if has("gui_gtk2")   "GTK2
-        set guifont=Monaco\ 12, Monospace\ 12
+        set guifont=Monaco\ 12,Monospace\ 12
     endif
     set guioptions-=T
     set guioptions+=e
@@ -539,11 +562,14 @@ endif
 
 " theme主题
 set background=dark
-colorscheme solarized
 set t_Co=256
+colorscheme solarized
+" colorscheme molokai
+" colorscheme Tomorrow-Night
+" colorscheme Tomorrow-Night-Bright
+" colorscheme desert
 
-"colorscheme molokai
-"colorscheme desert
+
 
 "设置标记一列的背景颜色和数字一行颜色一致
 hi! link SignColumn   LineNr
