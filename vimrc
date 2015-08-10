@@ -45,7 +45,7 @@ filetype plugin indent on
 
 "以下配置有详细说明，一些特性不喜欢可以直接注解掉
 
-"set guifont=Monaco:h20          " 字体 && 字号
+"set guifont=Droid_Sans_Mono_for_Powerline:h12          " 字体 && 字号
 
 " history存储容量
 set history=2000
