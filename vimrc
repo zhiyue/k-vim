@@ -566,12 +566,10 @@ endif
 set background=dark
 set t_Co=256
 colorscheme solarized
-" colorscheme molokai
-" colorscheme Tomorrow-Night
+"colorscheme molokai
+ "colorscheme Tomorrow-Night
 " colorscheme Tomorrow-Night-Bright
 " colorscheme desert
-
-
 
 "设置标记一列的背景颜色和数字一行颜色一致
 hi! link SignColumn   LineNr
@@ -580,12 +578,15 @@ hi! link ShowMarksHLu DiffChange
 
 "" for error highlight，防止错误整行标红导致看不清
 highlight clear SpellBad
-highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
+highligh SpellBad term=standout ctermfg=1 term=underline cterm=underline
 highlight clear SpellCap
 highlight SpellCap term=underline cterm=underline
 highlight clear SpellRare
 highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
+
+set fillchars=vert:\|
+hi! vertsplit guifg=fg guibg=fg
 
 

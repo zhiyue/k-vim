@@ -600,7 +600,14 @@ Bundle 'Glench/Vim-Jinja2-Syntax'
 " ###### tmux status ######
 "
 Bundle 'edkolev/tmuxline.vim'
-
+let g:airline#extensions#tmuxline#enabled = 0
+let g:tmuxline_preset = {
+      \'a'    : '#S',
+      \'win'  : ['#I', '#W'],
+      \'cwin' : ['#I', '#W', '#F'],
+      \'y'    : ['%R', '%a', '%Y'],
+      \'z'    : '#H'}
+ let g:tmuxline_theme = 'zenburn'
 
 " ##### bufexplorer ######
 Bundle 'jlanzarotta/bufexplorer'
